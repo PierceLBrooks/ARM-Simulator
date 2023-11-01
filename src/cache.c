@@ -130,7 +130,7 @@ uint32_t i_cache_update(cache_t *c, uint64_t addr) {
 		lru_array[i] = c->lines[set_index][i].LRUcounter;
 	}
 
-	uint32_t evicted_index = index_of_max_value(lru_array, num_blocks);
+	uint32_t evicted_index = index_of_max_value((int*)lru_array, num_blocks);
 	c->lines[set_index][evicted_index].valid_bit = 1;
 	c->lines[set_index][evicted_index].tag = tag;
 	// Have to retrieve from memory the data
@@ -195,7 +195,7 @@ int64_t d_cache_update(cache_t *c, instruction inst, uint64_t addr, int64_t new_
 			lru_array[i] = c->lines[set_index][i].LRUcounter;
 		}
 		 //if cache full and tags dont match. need to evict
-		uint32_t evicted_index = index_of_max_value(lru_array, 8); //we evict this old cache block
+		uint32_t evicted_index = index_of_max_value((int*)lru_array, 8); //we evict this old cache block
 		if (c->lines[set_index][evicted_index].dirty_bit == 1) {
 			int block_index;
 			for (block_index = 0; block_index < 8; block_index++) { // writes the cache data in to lower memory
@@ -274,7 +274,7 @@ int64_t d_cache_update(cache_t *c, instruction inst, uint64_t addr, int64_t new_
 			lru_array[i] = c->lines[set_index][i].LRUcounter;
 		}
 		 //if cache full and tags dont match. need to evict
-		uint32_t evicted_index = index_of_max_value(lru_array, 8); //we evict this old cache block
+		uint32_t evicted_index = index_of_max_value((int*)lru_array, 8); //we evict this old cache block
 
 		int block_index;
 		if (c->lines[set_index][evicted_index].dirty_bit == 1) {
@@ -287,7 +287,7 @@ int64_t d_cache_update(cache_t *c, instruction inst, uint64_t addr, int64_t new_
 				}
 			}
 		}
-		int* blockArray = blockbuilder(addr); // read back from lower memory of dest address
+		uint32_t* blockArray = blockbuilder(addr); // read back from lower memory of dest address
 		c->lines[set_index][evicted_index].valid_bit = 1;
 		c->lines[set_index][evicted_index].dirty_bit = 1;
 		c->lines[set_index][evicted_index].tag = tag;

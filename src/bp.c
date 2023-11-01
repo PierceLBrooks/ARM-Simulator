@@ -18,6 +18,8 @@
 #include <assert.h>
 #include <inttypes.h>
 
+bp_t bpt;
+
 void bpt_init() { // all branch predictor structures are initialized to 0. is this function necessary to ensure that?
     bpt.GHR = 0;
     int i,j;

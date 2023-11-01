@@ -34,7 +34,7 @@ typedef struct
     pattern_history_table PHT;
 } bp_t;
 
-bp_t bpt;
+extern bp_t bpt;
 
 void bpt_init();
 

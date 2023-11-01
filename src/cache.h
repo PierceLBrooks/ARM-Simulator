@@ -9,6 +9,7 @@
 #define _CACHE_H_
 
 #include <stdint.h>
+#include "shell.h"
 
 typedef struct cache_line {
   uint32_t valid_bit;
@@ -41,8 +42,8 @@ typedef struct cache_t {
 
 } cache_t;
 
-cache_t* i_cache;
-cache_t* d_cache;
+extern cache_t* i_cache;
+extern cache_t* d_cache;
 
 // cache line is [t][v][d][bloooooock]
 
@@ -50,6 +51,14 @@ cache_t *cache_new(uint32_t sets_per_cache, uint32_t lines_per_set, uint32_t byt
 void cache_destroy(cache_t *c);
 
 uint32_t cache_update(cache_t *c, uint64_t addr, uint32_t is_instruction_cache);
+
+int64_t d_cache_update(cache_t *c, instruction inst, uint64_t addr, int64_t new_store_data, int64_t* my_output);
+
+uint32_t i_cache_update(cache_t *c, uint64_t addr);
+
+bool i_cache_did_hit(cache_t *c, uint64_t addr);
+
+uint32_t index_of_max_value(int* array, uint32_t n);
 
 
 #endif

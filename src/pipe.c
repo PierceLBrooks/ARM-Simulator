@@ -211,7 +211,19 @@ void print_instruction(instruction i, uint32_t machine_code) {
 
 /* ----------------------------GLOBAL VARIABLES-------------------------*/
 
+int RUN_BIT;
+
+Pipe_Reg_IFtoID PREGISTER_IF_ID;
+Pipe_Reg_IDtoEX PREGISTER_ID_EX;
+Pipe_Reg_EXtoMEM PREGISTER_EX_MEM;
+Pipe_Reg_MEMtoWB PREGISTER_MEM_WB;
+
+global_vars globals;
+
 CPU_State CURRENT_STATE;
+
+cache_t* i_cache;
+cache_t* d_cache;
 
 void pipe_init()
 {

@@ -320,7 +320,7 @@ void get_command(FILE * dumpsim_file) {
 void init_memory() {                                           
     int i;
     for (i = 0; i < MEM_NREGIONS; i++) {
-        MEM_REGIONS[i].mem = malloc(MEM_REGIONS[i].size);
+        MEM_REGIONS[i].mem = (uint8_t*)malloc(MEM_REGIONS[i].size);
         memset(MEM_REGIONS[i].mem, 0, MEM_REGIONS[i].size);
     }
 }
